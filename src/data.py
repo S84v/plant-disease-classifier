@@ -1,6 +1,7 @@
 # Create datasets and dataloaders with transforms
 
 from pathlib import Path
+import torch
 from torchvision import datasets
 from torchvision.transforms import v2
 from torch.utils.data import DataLoader
@@ -13,7 +14,8 @@ def get_transforms():
             v2.Resize((config.IMAGE_SIZE, config.IMAGE_SIZE)),
             v2.RandomHorizontalFlip(),
             v2.RandomRotation(10),
-            v2.ToTensor(),
+            v2.ToImage(),
+            v2.ToDtype(torch.float32, scale=True),
             v2.Normalize(mean=config.IMAGENET_MEAN, std=config.IMAGENET_STD),
         ]
     )
@@ -21,7 +23,8 @@ def get_transforms():
     val_transform = v2.Compose(
         [
             v2.Resize(config.IMAGE_SIZE, config.IMAGE_SIZE),
-            v2.ToTensor(),
+            v2.ToImage(),
+            v2.ToDtype(torch.float32, scale=True),
             v2.Normalize(mean=config.IMAGENET_MEAN, std=config.IMAGENET_STD),
         ]
     )
