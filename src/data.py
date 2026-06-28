@@ -43,7 +43,7 @@ def create_datasets():
     return train_dataset, val_dataset
 
 
-def create_dataloaders(data_dir, batch_size, image_size, num_workers):
+def create_dataloaders():
     train_dataset, val_dataset = create_datasets()
 
     train_dataloader = DataLoader(
