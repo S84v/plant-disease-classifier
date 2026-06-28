@@ -4,40 +4,62 @@ from pathlib import Path
 from torchvision import datasets
 from torchvision.transforms import v2
 from torch.utils.data import DataLoader
-from config import *
+import config
 
 
-def get_transforms(image_size=IMAGE_SIZE):
+def get_transforms():
     train_transform = v2.Compose(
         [
-            v2.Resize((IMAGE_SIZE, IMAGE_SIZE)),
+            v2.Resize((config.IMAGE_SIZE, config.IMAGE_SIZE)),
             v2.RandomHorizontalFlip(),
             v2.RandomRotation(10),
             v2.ToTensor(),
-            v2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            v2.Normalize(mean=config.IMAGENET_MEAN, std=config.IMAGENET_STD),
         ]
     )
 
     val_transform = v2.Compose(
         [
-            v2.Resize(IMAGE_SIZE, IMAGE_SIZE),
+            v2.Resize(config.IMAGE_SIZE, config.IMAGE_SIZE),
             v2.ToTensor(),
-            v2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            v2.Normalize(mean=config.IMAGENET_MEAN, std=config.IMAGENET_STD),
         ]
     )
 
     return train_transform, val_transform
 
 
-def create_datasets(data_dir, image_size=IMAGE_SIZE):
-    train_transform, val_transform = get_transforms(IMAGE_SIZE)
+def create_datasets():
+    train_transform, val_transform = get_transforms()
 
     train_dataset = datasets.ImageFolder(
-        root=Path(DATA_DIR) / "train", transform=train_transform
+        root=Path(config.DATA_DIR) / "train", transform=train_transform
     )
 
     val_dataset = datasets.ImageFolder(
-        root=Path(DATA_DIR) / "test", transform=val_transform
+        root=Path(config.DATA_DIR) / "test", transform=val_transform
     )
 
     return train_dataset, val_dataset
+
+
+def create_dataloaders(data_dir, batch_size, image_size, num_workers):
+    train_dataset, val_dataset = create_datasets()
+
+    train_dataloader = DataLoader(
+        dataset=train_dataset,
+        batch_size=config.BATCH_SIZE,
+        shuffle=True,
+        num_workers=config.NUM_WORKERS,
+        pin_memory=True,
+    )
+
+    val_dataloader = DataLoader(
+        dataset=val_dataset,
+        batch_size=config.BATCH_SIZE,
+        shuffle=False,
+        num_workers=config.NUM_WORKERS,
+        pin_memory=True,
+    )
+
+    return train_dataloader, val_dataloader, train_dataset.classes
