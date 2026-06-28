@@ -1,14 +1,19 @@
 # Create datasets and dataloaders with transforms
 
 from pathlib import Path
+
 import torch
 from torchvision import datasets
 from torchvision.transforms import v2
 from torch.utils.data import DataLoader
+
 import config
 
 
 def get_transforms():
+    """
+    Returns training and validation transforms.
+    """
     train_transform = v2.Compose(
         [
             v2.Resize((config.IMAGE_SIZE, config.IMAGE_SIZE)),
@@ -33,6 +38,9 @@ def get_transforms():
 
 
 def create_datasets():
+    """
+    Creates ImageFolder datasets.
+    """
     train_transform, val_transform = get_transforms()
 
     train_dataset = datasets.ImageFolder(
@@ -47,6 +55,9 @@ def create_datasets():
 
 
 def create_dataloaders():
+    """
+    Creates PyTorch DataLoaders.
+    """
     train_dataset, val_dataset = create_datasets()
 
     train_dataloader = DataLoader(
