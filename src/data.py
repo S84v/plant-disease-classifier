@@ -39,3 +39,5 @@ def create_datasets(data_dir, image_size=IMAGE_SIZE):
     val_dataset = datasets.ImageFolder(
         root=Path(DATA_DIR) / "test", transform=val_transform
     )
+
+    return train_dataset, val_dataset
