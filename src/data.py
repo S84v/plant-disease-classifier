@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 from config import *
 
 
-def get_transforms(image_size=224):
+def get_transforms(image_size=IMAGE_SIZE):
     train_transform = v2.Compose(
         [
             v2.Resize((IMAGE_SIZE, IMAGE_SIZE)),
@@ -27,3 +27,15 @@ def get_transforms(image_size=224):
     )
 
     return train_transform, val_transform
+
+
+def create_datasets(data_dir, image_size=IMAGE_SIZE):
+    train_transform, val_transform = get_transforms(IMAGE_SIZE)
+
+    train_dataset = datasets.ImageFolder(
+        root=Path(DATA_DIR) / "train", transform=train_transform
+    )
+
+    val_dataset = datasets.ImageFolder(
+        root=Path(DATA_DIR) / "test", transform=val_transform
+    )
