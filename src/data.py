@@ -63,3 +63,13 @@ def create_dataloaders():
     )
 
     return train_dataloader, val_dataloader, train_dataset.classes
+
+
+if __name__ == "__main__":
+    train_dataloader, val_dataloader, classes = create_dataloaders()
+
+    images, labels = next(iter(train_dataloader))
+
+    print(f"Image shape: {images.shape}")
+    print(f"Labels shape: {labels.shape}]")
+    print(f"Number of classes: {len(classes)}")
