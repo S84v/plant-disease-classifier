@@ -40,7 +40,7 @@ def create_datasets():
     )
 
     val_dataset = datasets.ImageFolder(
-        root=Path(config.DATA_DIR) / "test", transform=val_transform
+        root=Path(config.DATA_DIR) / "valid", transform=val_transform
     )
 
     return train_dataset, val_dataset
