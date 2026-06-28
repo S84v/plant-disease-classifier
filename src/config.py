@@ -1,0 +1,4 @@
+IMAGE_SIZE = 224
+BATCH_SIZE = 32
+NUM_WORKERS = 0
+DATA_DIR = "../data"
