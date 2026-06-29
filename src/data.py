@@ -27,7 +27,7 @@ def get_transforms():
 
     val_transform = v2.Compose(
         [
-            v2.Resize(config.IMAGE_SIZE, config.IMAGE_SIZE),
+            v2.Resize((config.IMAGE_SIZE, config.IMAGE_SIZE)),
             v2.ToImage(),
             v2.ToDtype(torch.float32, scale=True),
             v2.Normalize(mean=config.IMAGENET_MEAN, std=config.IMAGENET_STD),
