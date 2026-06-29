@@ -4,7 +4,7 @@ from torchvision.models import resnet18, ResNet18_Weights
 from torch import nn
 
 
-def build_model(num_classes, pretrained=True, freeze_backbone=True):
+def build_model(num_classes: int, pretrained: bool=True, freeze_backbone:bool=True) -> nn.Module:
     """
     Build a ResNet18 model for image classification.
 
