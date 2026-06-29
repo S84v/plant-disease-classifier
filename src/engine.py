@@ -56,40 +56,52 @@ def validate_one_epoch(model, dataloader, criterion):
 
 
 if __name__ == "__main__":
-    from data import create_dataloaders
-    from model import build_model
+    from torch.utils.data import DataLoader, Subset
     from torch import nn
     from torch.optim import Adam
 
-    # Create dataloaders
+    from data import create_dataloaders
+    from model import build_model
+
+    # Load full datasets
     train_loader, valid_loader, class_names = create_dataloaders()
 
-    # Build model
-    model = build_model(
-        num_classes=len(class_names), pretrained=True, freeze_backbone=True
+    # Keep only the first 4 images
+    train_subset = Subset(train_loader.dataset, indices=range(4))
+    valid_subset = Subset(valid_loader.dataset, indices=range(4))
+
+    # Create tiny dataloaders
+    train_loader = DataLoader(
+        train_subset,
+        batch_size=2,
+        shuffle=False
     )
 
-    # Define loss function and optimizer
+    valid_loader = DataLoader(
+        valid_subset,
+        batch_size=2,
+        shuffle=False
+    )
+
+    # Build model
+    model = build_model(num_classes=len(class_names))
+
     criterion = nn.CrossEntropyLoss()
     optimizer = Adam(model.parameters(), lr=1e-3)
 
-    # Train for one epoch
+    print("Testing train_one_epoch...")
     train_metrics = train_one_epoch(
-        model=model,
-        dataloader=train_loader,
-        criterion=criterion,
-        optimizer=optimizer,
+        model,
+        train_loader,
+        criterion,
+        optimizer,
     )
-
-    print("Training Metrics")
     print(train_metrics)
 
-    # Validate for one epoch
+    print("\nTesting validate_one_epoch...")
     valid_metrics = validate_one_epoch(
-        model=model,
-        dataloader=valid_loader,
-        criterion=criterion,
+        model,
+        valid_loader,
+        criterion,
     )
-
-    print("\nValidation Metrics")
     print(valid_metrics)
