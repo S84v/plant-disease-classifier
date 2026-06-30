@@ -12,6 +12,7 @@ import seaborn as sns
 import numpy as np
 
 from pathlib import Path
+import json
 
 
 def load_model():
@@ -147,3 +148,14 @@ def show_misclassified_images(model, dataloader, class_names, fig_path, max_imag
         plt.tight_layout()
 
         plt.savefig(Path(config.FIG_DIR) / "misclassification.png")
+
+
+def save_results(metrics, classification_report, output_dir):
+    output_dir = Path(output_dir)
+
+    with open(output_dir / "metrics.json", "w") as file:
+        json.dump(metrics, file, indent=4)
+
+    with open(output_dir / "classification_report.txt", "w") as file:
+        file.write(classification_report)
+    print(f"Results saved to {output_dir}")
