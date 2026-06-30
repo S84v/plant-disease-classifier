@@ -184,6 +184,7 @@ def main():
     )
 
     metrics, report = compute_metrics(y_true, y_pred)
+    metrics["Loss"] = loss
 
     print("\nEvaluation Results")
     print("=" * 20)
