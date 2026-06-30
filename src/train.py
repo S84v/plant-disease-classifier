@@ -13,7 +13,7 @@ from pathlib import Path
 
 def main():
     train_dl, val_dl, classes = create_dataloaders()
-    model = build_model(num_classes=len(classes), pretrained=True, freeze_backbone=True)
+    model = build_model(num_classes=len(classes), pretrained=True, freeze_backbone=False)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(
