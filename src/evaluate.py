@@ -68,14 +68,29 @@ def plot_confusion_matrix(y_true, y_pred, class_names):
         xticklabels=class_names,
         yticklabels=class_names,
         linewidths=0.5,
-        linecolor="gray"
+        linecolor="gray",
     )
     heatmap.set_ylabel("True labels")
     heatmap.set_xlabel("Predicted labels")
     heatmap.set_title("Model Performance Confusion Matrix")
 
-    plt.savefig(Path(config.FIG_DIR) / "heatmap.png", bbox_inches = 'tight')
+    plt.savefig(Path(config.FIG_DIR) / "heatmap.png", bbox_inches="tight")
     plt.show()
 
+
 def plot_per_class_accuracy(cm, class_names):
-    
+    correct = np.diag(cm)
+    total = cm.sum(axis=1)
+
+    per_class_accuracy = np.divide(
+        correct, total, out=np.zeros_like(correct, dtype=float), where=total != 0
+    )
+
+    plt.bar(class_names, per_class_accuracy)
+    plt.xticks(rotation=90)
+    plt.xlabel("Class")
+    plt.ylabel("Accuracy")
+    plt.title("Per class accuracy")
+    plt.tight_layout()
+    plt.savefig(Path(config.FIG_DIR) / "per_class_accuracy.png")
+    plt.show()
