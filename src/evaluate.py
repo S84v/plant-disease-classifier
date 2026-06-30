@@ -84,6 +84,7 @@ def plot_confusion_matrix(y_true, y_pred, class_names):
 
     plt.savefig(Path(config.FIG_DIR) / "heatmap.png", bbox_inches="tight")
     plt.show()
+    plt.close()
 
     return cm
 
@@ -104,6 +105,7 @@ def plot_per_class_accuracy(cm, class_names):
     plt.tight_layout()
     plt.savefig(Path(config.FIG_DIR) / "per_class_accuracy.png")
     plt.show()
+    plt.close()
 
 
 def show_misclassified_images(model, dataloader, class_names, max_images=16):
@@ -157,6 +159,7 @@ def show_misclassified_images(model, dataloader, class_names, max_images=16):
         plt.tight_layout()
 
         plt.savefig(Path(config.FIG_DIR) / "misclassification.png")
+        plt.close()
 
 
 def save_results(metrics, classification_report, output_dir):
