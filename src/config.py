@@ -10,6 +10,7 @@ BATCH_SIZE = 32
 NUM_WORKERS = 0
 EPOCHS = 5
 LR = 1e-3
+NUM_CLASSES = 38
 
 # ImageNet normalization params
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
