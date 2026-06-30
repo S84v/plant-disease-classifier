@@ -62,8 +62,7 @@ def compute_metrics(y_true, y_pred):
         "Precision score": precision,
         "Recall score": recall,
         "F1 Score": f1,
-        "Classification Report": class_report,
-    }
+    }, class_report
 
 
 def plot_confusion_matrix(y_true, y_pred, class_names):
