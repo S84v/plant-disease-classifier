@@ -65,10 +65,14 @@ def plot_confusion_matrix(y_true, y_pred, class_names):
         annot=True,
         fmt="d",
         cmap="Greens",
+        xticklabels=class_names,
+        yticklabels=class_names,
+        linewidths=0.5,
+        linecolor="gray"
     )
     plt.ylabel("True labels")
     plt.xlabel("Predicted labels")
-    plt.title("Model Performance Confision Matrix")
+    plt.title("Model Performance Confusion Matrix")
 
-    plt.savefig(Path(config.FIG_DIR) / "heatmap.png")
+    plt.savefig(Path(config.FIG_DIR) / "heatmap.png", bbox_inches = 'tight')
     plt.show()
