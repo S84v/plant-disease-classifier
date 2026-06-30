@@ -21,3 +21,21 @@ def load_model():
     return model
 
 
+def collect_predictions(model, dataloader, loss_fn):
+    running_loss = 0.0
+    y_true = []
+    y_pred = []
+    total_samples = 0
+
+    with torch.no_grad():
+        for xb, yb in dataloader:
+            logits = model(xb)
+            running_loss = loss_fn(logits, yb)
+
+            y_pred = torch.argmax(logits, dim=1)
+            y_true.extend(yb)
+
+            total_samples = xb.size(0)
+        avg_loss = running_loss / total_samples
+
+    return avg_loss, y_true, y_pred
