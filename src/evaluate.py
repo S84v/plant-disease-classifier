@@ -136,8 +136,8 @@ def show_misclassified_images(model, dataloader, class_names, max_images=16):
 
         plt.figure(figsize=(12, 12))
 
-        mean = torch.tensor([config.IMAGENET_MEAN]).view(3, 1, 1)
-        std = torch.tensor([config.IMAGENET_STD]).view(3, 1, 1)
+        mean = torch.tensor(config.IMAGENET_MEAN).view(3, 1, 1)
+        std = torch.tensor(config.IMAGENET_STD).view(3, 1, 1)
 
         for i, (image, true_label, pred_label) in enumerate(misclassified):
             plt.subplot(rows, cols, i + 1)
