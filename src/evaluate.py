@@ -119,7 +119,7 @@ def show_misclassified_images(model, dataloader, class_names, max_images=16):
                 xb, yb, predictions, incorrect
             ):
                 if is_wrong:
-                    misclassified.append((xb, true_label, pred_label))
+                    misclassified.append((image, true_label, pred_label))
 
                 if len(misclassified) >= max_images:
                     break
