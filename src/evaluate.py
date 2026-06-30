@@ -70,9 +70,12 @@ def plot_confusion_matrix(y_true, y_pred, class_names):
         linewidths=0.5,
         linecolor="gray"
     )
-    plt.ylabel("True labels")
-    plt.xlabel("Predicted labels")
-    plt.title("Model Performance Confusion Matrix")
+    heatmap.set_ylabel("True labels")
+    heatmap.set_xlabel("Predicted labels")
+    heatmap.set_title("Model Performance Confusion Matrix")
 
     plt.savefig(Path(config.FIG_DIR) / "heatmap.png", bbox_inches = 'tight')
     plt.show()
+
+def plot_per_class_accuracy(cm, class_names):
+    
