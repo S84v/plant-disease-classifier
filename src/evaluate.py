@@ -191,3 +191,7 @@ def main():
     save_results(
         metrics=metrics, classification_report=report, output_dir=Path(config.FIG_DIR)
     )
+
+
+if __name__ == "__main__":
+    main()
