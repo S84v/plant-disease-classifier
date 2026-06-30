@@ -67,6 +67,7 @@ def compute_metrics(y_true, y_pred):
 
 def plot_confusion_matrix(y_true, y_pred, class_names):
     cm = metrics.confusion_matrix(y_true, y_pred)
+    plt.figure(figsize=(12, 10))
     heatmap = sns.heatmap(
         cm,
         annot=True,
