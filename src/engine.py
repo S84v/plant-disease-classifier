@@ -71,17 +71,9 @@ if __name__ == "__main__":
     valid_subset = Subset(valid_loader.dataset, indices=range(4))
 
     # Create tiny dataloaders
-    train_loader = DataLoader(
-        train_subset,
-        batch_size=2,
-        shuffle=False
-    )
+    train_loader = DataLoader(train_subset, batch_size=2, shuffle=False)
 
-    valid_loader = DataLoader(
-        valid_subset,
-        batch_size=2,
-        shuffle=False
-    )
+    valid_loader = DataLoader(valid_subset, batch_size=2, shuffle=False)
 
     # Build model
     model = build_model(num_classes=len(class_names))
