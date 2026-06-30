@@ -84,6 +84,8 @@ def plot_confusion_matrix(y_true, y_pred, class_names):
     plt.savefig(Path(config.FIG_DIR) / "heatmap.png", bbox_inches="tight")
     plt.show()
 
+    return cm
+
 
 def plot_per_class_accuracy(cm, class_names):
     correct = np.diag(cm)
