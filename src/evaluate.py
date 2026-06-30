@@ -8,6 +8,7 @@ from torch import nn
 
 from sklearn import metrics
 import matplotlib.pyplot as plt
+import seaborn as sns
 import numpy as np
 
 from pathlib import Path
@@ -55,3 +56,19 @@ def compute_metrics(y_true, y_pred):
         "F1 Score": f1,
         "Classification Report": class_report,
     }
+
+
+def plot_confusion_matrix(y_true, y_pred, class_names):
+    cm = metrics.confusion_matrix(y_true, y_pred)
+    heatmap = sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d",
+        cmap="Greens",
+    )
+    plt.ylabel("True labels")
+    plt.xlabel("Predicted labels")
+    plt.title("Model Performance Confision Matrix")
+
+    plt.savefig(Path(config.FIG_DIR) / "heatmap.png")
+    plt.show()
