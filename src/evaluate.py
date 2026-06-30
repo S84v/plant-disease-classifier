@@ -194,6 +194,7 @@ def main():
 
     print("\nClassification report")
     print("=" * 25)
+    print(report)
 
     cm = plot_confusion_matrix(y_true, y_pred, class_names)
     plot_per_class_accuracy(cm=cm, class_names=class_names)
