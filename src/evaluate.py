@@ -96,7 +96,7 @@ def plot_per_class_accuracy(cm, class_names):
     per_class_accuracy = np.divide(
         correct, total, out=np.zeros_like(correct, dtype=float), where=total != 0
     )
-
+    plt.figure(figsize=(14, 6))
     plt.bar(class_names, per_class_accuracy)
     plt.xticks(rotation=90)
     plt.xlabel("Class")
