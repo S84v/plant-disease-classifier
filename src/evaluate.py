@@ -29,15 +29,15 @@ def collect_predictions(model, dataloader, loss_fn):
 
     y_true = []
     y_pred = []
-    
+
     with torch.no_grad():
-        
+
         for xb, yb in dataloader:
-        
+
             logits = model(xb)
-        
+
             loss = loss_fn(logits, yb)
-        
+
             running_loss += loss.item() * xb.size(0)
             total_samples += xb.size(0)
 
@@ -52,9 +52,9 @@ def collect_predictions(model, dataloader, loss_fn):
 
 def compute_metrics(y_true, y_pred):
     accuracy = metrics.accuracy_score(y_true, y_pred)
-    precision = metrics.precision_score(y_true, y_pred)
-    recall = metrics.recall_score(y_true, y_pred)
-    f1 = metrics.f1_score(y_true, y_pred)
+    precision = metrics.precision_score(y_true, y_pred, average="weighted")
+    recall = metrics.recall_score(y_true, y_pred, average="weighted")
+    f1 = metrics.f1_score(y_true, y_pred, average="weighted")
     class_report = metrics.classification_report(y_true, y_pred)
 
     return {
