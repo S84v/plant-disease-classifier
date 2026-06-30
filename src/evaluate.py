@@ -97,7 +97,7 @@ def plot_per_class_accuracy(cm, class_names):
     plt.show()
 
 
-def show_misclassified_images(model, dataloader, class_names, fig_path, max_images=16):
+def show_misclassified_images(model, dataloader, class_names, max_images=16):
     model.eval()
     misclassified = []
 
@@ -159,3 +159,35 @@ def save_results(metrics, classification_report, output_dir):
     with open(output_dir / "classification_report.txt", "w") as file:
         file.write(classification_report)
     print(f"Results saved to {output_dir}")
+
+
+def main():
+    _, valid_loader, class_names = create_dataloaders()
+    model = load_model()
+
+    criterion = nn.CrossEntropyLoss()
+
+    loss, y_true, y_pred = collect_predictions(
+        model=model, dataloader=valid_loader, loss_fn=criterion
+    )
+
+    metrics, report = compute_metrics(y_true, y_pred)
+
+    print("\nEvaluation Results")
+    print("=" * 20)
+
+    for key, value in metrics.items():
+        print(f"{key}: {value}")
+
+    print("\nClassification report")
+    print("=" * 25)
+
+    cm = plot_confusion_matrix(y_true, y_pred, class_names)
+    plot_per_class_accuracy(cm=cm, class_names=class_names)
+    show_misclassified_images(
+        model=model, dataloader=valid_loader, class_names=class_names
+    )
+
+    save_results(
+        metrics=metrics, classification_report=report, output_dir=Path(config.FIG_DIR)
+    )
