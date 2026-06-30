@@ -94,3 +94,56 @@ def plot_per_class_accuracy(cm, class_names):
     plt.tight_layout()
     plt.savefig(Path(config.FIG_DIR) / "per_class_accuracy.png")
     plt.show()
+
+
+def show_misclassified_images(model, dataloader, class_names, fig_path, max_images=16):
+    model.eval()
+    misclassified = []
+
+    with torch.no_grad():
+        for xb, yb in dataloader:
+            logits = model(xb)
+            predictions = torch.argmax(logits, dim=1)
+            incorrect = predictions != yb
+
+            for image, true_label, pred_label, is_wrong in zip(
+                xb, yb, predictions, incorrect
+            ):
+                if is_wrong:
+                    misclassified.append((xb, true_label, pred_label))
+
+                if len(misclassified) >= max_images:
+                    break
+            if len(misclassified) >= max_images:
+                break
+        if len(misclassified) == 0:
+            print("No misclassification found.")
+            return
+        rows = 4
+        cols = 4
+
+        plt.figure(figsize=(12, 12))
+
+        mean = torch.tensor([config.IMAGENET_MEAN]).view(3, 1, 1)
+        std = torch.tensor([config.IMAGENET_STD]).view(3, 1, 1)
+
+        for i, (image, true_label, pred_label) in enumerate(misclassified):
+            plt.subplot(rows, cols, i + 1)
+
+            image = image * std + mean
+            image = image.clamp(0, 1)
+
+            image = image.permute(1, 2, 0)
+
+            image = image.numpy()
+
+            plt.imshow(image)
+            plt.title(
+                f"True: {class_names[true_label]}\nPredicted: {class_names[pred_label]}",
+                fontsize=8,
+            )
+
+            plt.axis("off")
+        plt.tight_layout()
+
+        plt.savefig(Path(config.FIG_DIR) / "misclassification.png")
