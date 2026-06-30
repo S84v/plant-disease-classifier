@@ -1,7 +1,7 @@
 # Paths
 DATA_DIR = "../data"
 MODEL_DIR = "../models"
-
+FIG_DIR = "../outputs"
 # Image
 IMAGE_SIZE = 224
 
