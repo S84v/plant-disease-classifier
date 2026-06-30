@@ -43,7 +43,7 @@ def collect_predictions(model, dataloader, loss_fn):
 
             predictions = torch.argmax(logits, dim=1)
             y_true.extend(yb.tolist())
-            y_pred.extend(predictions)
+            y_pred.extend(predictions.tolist())
 
         avg_loss = running_loss / total_samples
 
