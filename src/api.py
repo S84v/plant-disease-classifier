@@ -13,6 +13,6 @@ def root():
     return {"message": "API running."}
 
 
-@app.get("/health_check")
+@app.get("/health")
 def health_check():
     return {"status": "healthy"}
