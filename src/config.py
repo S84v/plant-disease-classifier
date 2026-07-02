@@ -5,6 +5,7 @@ FIG_DIR = "../outputs"
 
 # Image
 IMAGE_SIZE = 224
+TEST_IMAGE = "data\test\AppleCedarRust1.JPG"
 
 # Training
 BATCH_SIZE = 32
