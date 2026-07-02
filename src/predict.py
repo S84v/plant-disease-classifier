@@ -48,3 +48,10 @@ def load_image(image_path):
         raise ValueError(f"Failed to load image: {image_path}") from e
 
     return image
+
+
+def preprocess_image(image, transform):
+    image = transform(image)
+    image = image.unsqueeze(0)
+
+    return image
