@@ -34,3 +34,17 @@ def get_inference_transform():
     )
 
     return inference_transform
+
+
+def load_image(image_path):
+    image_path = Path(image_path)
+
+    if not image_path.exists():
+        raise FileNotFoundError(f"Image not found: {image_path}")
+
+    try:
+        image = Image.open(image_path).convert("RGB")
+    except Exception as e:
+        raise ValueError(f"Failed to load image: {image_path}") from e
+
+    return image
