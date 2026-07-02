@@ -78,3 +78,16 @@ def predict_image(model, image_tensor, class_name, top_k=5):
             "confidence": top_predictions[0]["confidence"],
             "top_k_predictions": top_predictions,
         }
+
+
+def main():
+    model = load_model()
+    transform = get_inference_transform()
+    image = load_image(config.TEST_IMAGE)
+
+    image_tensor = preprocess_image(image=image, transform=transform)
+
+    prediction = predict_image(
+        model=model, image_tensor=image_tensor, class_name=config.CLASS_NAMES, top_k=5
+    )
+    print(prediction)
