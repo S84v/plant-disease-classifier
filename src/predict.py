@@ -89,7 +89,12 @@ def main():
     prediction = predict_image(
         model=model, image_tensor=image_tensor, class_names=config.CLASS_NAMES, top_k=5
     )
-    print(prediction)
+    print(f"Prediction : {prediction['predicted_class']}")
+    print(f"Confidence : {prediction['confidence']:.2%}")
+
+    print("\nTop predictions:")
+    for pred in prediction["top_k_predictions"]:
+        print(f"{pred['class']:<30} {pred['confidence']:.2%}")
 
 
 if __name__ == "__main__":
