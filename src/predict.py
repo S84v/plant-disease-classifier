@@ -21,3 +21,16 @@ def load_model():
     model.eval()
 
     return model
+
+
+def get_inference_transform():
+    inference_transform = v2.Compose(
+        [
+            v2.Resize((config.IMAGE_SIZE, config.IMAGE_SIZE)),
+            v2.ToImage(),
+            v2.ToDtype(torch.float32, scale=True),
+            v2.Normalize(mean=config.IMAGENET_MEAN, std=config.IMAGENET_STD),
+        ]
+    )
+
+    return inference_transform
