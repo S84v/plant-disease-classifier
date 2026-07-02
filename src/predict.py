@@ -55,3 +55,26 @@ def preprocess_image(image, transform):
     image = image.unsqueeze(0)
 
     return image
+
+
+def predict_image(model, image_tensor, class_name, top_k=5):
+
+    with torch.no_grad():
+        logits = model(image_tensor)
+        probabilities = torch.softmax(logits, dim=1)
+
+        top_probs, top_indices = torch.topk(probabilities, k=top_k, dim=1)
+        top_probs = top_probs.squeeze(0).tolist()
+        top_indices = top_indices.squeeze(0).tolist()
+
+        top_predictions = []
+
+        for index, probability in zip(top_indices, top_probs):
+            top_predictions.append(
+                {"class": class_name[index], "confidence": probability}
+            )
+        return {
+            "predicted_class": top_predictions[0]["class"],
+            "confidence": top_predictions[0]["confidence"],
+            "top_k_predictions": top_predictions,
+        }
