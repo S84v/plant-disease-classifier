@@ -7,7 +7,6 @@ import torch
 from torchvision.transforms import v2
 from PIL import Image
 from pathlib import Path
-import matplotlib.pyplot as plt
 
 
 def load_model():
