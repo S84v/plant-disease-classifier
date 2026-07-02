@@ -91,3 +91,7 @@ def main():
         model=model, image_tensor=image_tensor, class_name=config.CLASS_NAMES, top_k=5
     )
     print(prediction)
+
+
+if __name__ == "__main__":
+    main()
