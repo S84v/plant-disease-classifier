@@ -57,7 +57,7 @@ def preprocess_image(image, transform):
     return image
 
 
-def predict_image(model, image_tensor, class_name, top_k=5):
+def predict_image(model, image_tensor, class_names, top_k=5):
 
     with torch.no_grad():
         logits = model(image_tensor)
@@ -71,7 +71,7 @@ def predict_image(model, image_tensor, class_name, top_k=5):
 
         for index, probability in zip(top_indices, top_probs):
             top_predictions.append(
-                {"class": class_name[index], "confidence": probability}
+                {"class": class_names[index], "confidence": probability}
             )
         return {
             "predicted_class": top_predictions[0]["class"],
@@ -88,7 +88,7 @@ def main():
     image_tensor = preprocess_image(image=image, transform=transform)
 
     prediction = predict_image(
-        model=model, image_tensor=image_tensor, class_name=config.CLASS_NAMES, top_k=5
+        model=model, image_tensor=image_tensor, class_names=config.CLASS_NAMES, top_k=5
     )
     print(prediction)
 
