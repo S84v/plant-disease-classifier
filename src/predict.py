@@ -14,7 +14,7 @@ def load_model():
         num_classes=config.NUM_CLASSES, pretrained=True, freeze_backbone=False
     )
     model.load_state_dict(
-        state_dict=torch.load(Path(config.MODEL_DIR) / "best_model.pth")
+        state_dict=torch.load(Path(config.MODEL_DIR) / "best_model.pth", weights_only=True)
     )
 
     model.eval()

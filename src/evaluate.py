@@ -17,7 +17,7 @@ import json
 
 def load_model():
     model = build_model(config.NUM_CLASSES, pretrained=True, freeze_backbone=False)
-    model.load_state_dict(torch.load(Path(config.MODEL_DIR) / "best_model.pth"))
+    model.load_state_dict(torch.load(Path(config.MODEL_DIR) / "best_model.pth", weights_only=True),)
     model.eval()
 
     return model
