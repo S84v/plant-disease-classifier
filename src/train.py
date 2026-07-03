@@ -1,9 +1,9 @@
 # Model training logic
 
-import config
-from data import create_dataloaders
-from model import build_model
-from engine import train_one_epoch, validate_one_epoch
+from . import config
+from .data import create_dataloaders
+from .model import build_model
+from .engine import train_one_epoch, validate_one_epoch
 
 import torch
 from torch import nn
@@ -13,7 +13,9 @@ from pathlib import Path
 
 def main():
     train_dl, val_dl, classes = create_dataloaders()
-    model = build_model(num_classes=len(classes), pretrained=True, freeze_backbone=False)
+    model = build_model(
+        num_classes=len(classes), pretrained=True, freeze_backbone=False
+    )
 
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(

@@ -1,7 +1,7 @@
 # Model evaluation logic
-import config
-from data import create_dataloaders
-from model import build_model
+from . import config
+from .data import create_dataloaders
+from .model import build_model
 
 import torch
 from torch import nn
