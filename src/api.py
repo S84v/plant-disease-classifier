@@ -6,7 +6,16 @@ import config
 from io import BytesIO
 from PIL import Image, UnidentifiedImageError
 import logging
+from pydantic import BaseModel
 
+class Prediction(BaseModel):
+    class_name: str
+    confidence: float
+
+class PredictionResponse(BaseModel):
+    predicted_class: str
+    confidence: float
+    top_k_predictions: list[Prediction]
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -44,7 +53,7 @@ def health_check(request: Request):
     return {"status": "healthy", "model_loaded": model_loaded}
 
 
-@app.post("/predict")
+@app.post("/predict", response_model=PredictionResponse)
 async def predict(request: Request, file: UploadFile = File(...)):
 
     model = request.app.state.model
