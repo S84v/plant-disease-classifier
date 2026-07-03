@@ -70,10 +70,10 @@ def predict_image(model, image_tensor, class_names, top_k=5):
 
         for index, probability in zip(top_indices, top_probs):
             top_predictions.append(
-                {"class": class_names[index], "confidence": probability}
+                {"class_name": class_names[index], "confidence": probability}
             )
         return {
-            "predicted_class": top_predictions[0]["class"],
+            "predicted_class": top_predictions[0]["class_name"],
             "confidence": top_predictions[0]["confidence"],
             "top_k_predictions": top_predictions,
         }
@@ -94,7 +94,7 @@ def main():
 
     print("\nTop predictions:")
     for pred in prediction["top_k_predictions"]:
-        print(f"{pred['class']:<30} {pred['confidence']:.2%}")
+        print(f"{pred['class_name']:<30} {pred['confidence']:.2%}")
 
 
 if __name__ == "__main__":
