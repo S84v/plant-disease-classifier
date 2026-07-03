@@ -1,23 +1,33 @@
 # FastAPI wrapper for predict.py
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from contextlib import asynccontextmanager
-from predict import load_model, get_inference_transform, preprocess_image, predict_image
-import config
+from .predict import (
+    load_model,
+    get_inference_transform,
+    preprocess_image,
+    predict_image,
+)
+
+from . import config
 from io import BytesIO
 from PIL import Image, UnidentifiedImageError
 import logging
 from pydantic import BaseModel
 
+
 class Prediction(BaseModel):
     class_name: str
     confidence: float
+
 
 class PredictionResponse(BaseModel):
     predicted_class: str
     confidence: float
     top_k_predictions: list[Prediction]
 
+
 logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
