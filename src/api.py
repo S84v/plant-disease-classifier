@@ -63,7 +63,7 @@ async def predict(request: Request, file: UploadFile = File(...)):
             class_names=config.CLASS_NAMES,
             top_k=5,
         )
+        return prediction
 
     except UnidentifiedImageError:
         raise HTTPException(status_code=400, detail="Invalid image file.")
-    return prediction
