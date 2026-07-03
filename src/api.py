@@ -1,7 +1,7 @@
 # FastAPI wrapper for predict.py
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from contextlib import asynccontextmanager
-from predict import load_model
+from predict import load_model, get_inference_transform, preprocess_image, predict_image
 from io import BytesIO
 from PIL import Image, UnidentifiedImageError
 
