@@ -49,7 +49,7 @@ async def predict(file: UploadFile = File(...)):
 
         image = Image.open(BytesIO(image_bytes))
         image.load()
-        image.convert("RGB")
+        image = image.convert("RGB")
     except UnidentifiedImageError:
         raise HTTPException(status_code=400, detail="Invalid image file.")
     return {
