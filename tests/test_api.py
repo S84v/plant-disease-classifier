@@ -89,7 +89,10 @@ def test_predict_invalid_file_type(client, text_file):
         )
 
     assert response.status_code == 415
-    assert response.json()["detail"] == "Unsupported image format."
+    
+    body = response.json()
+    assert body["error"]["code"] == 415
+    assert body["error"]["message"] == "Unsupported image format."
 
 
 def test_predict_corrupted_image(client, fake_image):
@@ -109,7 +112,10 @@ def test_predict_corrupted_image(client, fake_image):
         )
 
     assert response.status_code == 400
-    assert response.json()["detail"] == "Invalid image file."
+    
+    body = response.json()
+    assert body["error"]["code"] == 400
+    assert body["error"]["message"] == "Invalid image file."
 
 
 def test_predict_missing_file(client):
@@ -119,6 +125,11 @@ def test_predict_missing_file(client):
     response = client.post("/predict")
 
     assert response.status_code == 422
+    
+    body = response.json()
+    assert body["error"]["code"] == 422
+    assert body["error"]["message"] == "Request validation failed."
+    assert "details" in body["error"]
 
 
 def test_predict_wrong_method(client):
