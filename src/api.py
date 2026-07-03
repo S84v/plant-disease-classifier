@@ -17,6 +17,8 @@ class PredictionResponse(BaseModel):
     confidence: float
     top_k_predictions: list[Prediction]
 
+logger = logging.getLogger(__name__)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Loading model...")
@@ -40,7 +42,6 @@ allowed_types = {
     "image/webp",
 }
 
-logger = logging.getLogger(__name__)
 
 @app.get("/")
 def root():
