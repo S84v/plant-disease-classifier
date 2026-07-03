@@ -1,7 +1,11 @@
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
 # Paths
-DATA_DIR = "../data"
-MODEL_DIR = "../models"
-FIG_DIR = "../outputs"
+DATA_DIR = PROJECT_ROOT / "data"
+MODEL_DIR = PROJECT_ROOT / "models"
+FIG_DIR = PROJECT_ROOT / "outputs"
 
 # Image
 IMAGE_SIZE = 224
