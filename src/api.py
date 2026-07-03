@@ -1,18 +1,16 @@
 # FastAPI wrapper for predict.py
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from contextlib import asynccontextmanager
-from .predict import (
-    load_model,
-    get_inference_transform,
-    preprocess_image,
-    predict_image,
-)
+from .predict import load_model, get_inference_transform, preprocess_image, predict_image
+
 
 from . import config
 from io import BytesIO
 from PIL import Image, UnidentifiedImageError
 import logging
 from pydantic import BaseModel
+
+from .exceptions import register_exception_handlers
 
 
 class Prediction(BaseModel):
@@ -46,6 +44,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+register_exception_handlers(app)
+
 allowed_types = {
     "image/jpeg",
     "image/png",
@@ -73,21 +73,19 @@ async def predict(request: Request, file: UploadFile = File(...)):
     if file.content_type not in allowed_types:
         raise HTTPException(status_code=415, detail="Unsupported image format.")
 
+    image_bytes = await file.read()
     try:
-        image_bytes = await file.read()
-
         image = Image.open(BytesIO(image_bytes))
         image.load()
-        image = image.convert("RGB")
-
-        image_tensor = preprocess_image(image=image, transform=transform)
-        prediction = predict_image(
-            model=model,
-            image_tensor=image_tensor,
-            class_names=config.CLASS_NAMES,
-            top_k=5,
-        )
-        return prediction
-
     except UnidentifiedImageError:
         raise HTTPException(status_code=400, detail="Invalid image file.")
+    image = image.convert("RGB")
+
+    image_tensor = preprocess_image(image=image, transform=transform)
+    prediction = predict_image(
+        model=model,
+        image_tensor=image_tensor,
+        class_names=config.CLASS_NAMES,
+        top_k=5,
+    )
+    return prediction
