@@ -5,16 +5,17 @@ from predict import load_model, get_inference_transform, preprocess_image, predi
 import config
 from io import BytesIO
 from PIL import Image, UnidentifiedImageError
+import logging
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Loading model...")
+    logger.info("Loading model...")
     app.state.model = load_model()
     app.state.transform = get_inference_transform()
-    print("Model loaded successfully.")
+    logger.info("Model loaded successfully.")
     yield
-    print("Shutting down API...")
+    logger.info("Shutting down API...")
 
 
 app = FastAPI(
@@ -24,6 +25,13 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+allowed_types = {
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+}
+
+logger = logging.getLogger(__name__)
 
 @app.get("/")
 def root():
@@ -31,17 +39,13 @@ def root():
 
 
 @app.get("/health")
-def health_check():
-    return {"status": "healthy"}
+def health_check(request: Request):
+    model_loaded = hasattr(request.app.state, "model")
+    return {"status": "healthy", "model_loaded": model_loaded}
 
 
 @app.post("/predict")
 async def predict(request: Request, file: UploadFile = File(...)):
-    allowed_types = {
-        "image/jpeg",
-        "image/png",
-        "image/webp",
-    }
 
     model = request.app.state.model
     transform = request.app.state.transform
