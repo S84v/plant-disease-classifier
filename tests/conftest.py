@@ -35,5 +35,5 @@ def fake_image(assets_dir):
 
 
 @pytest.fixture(scope="session")
-def invalid_file(assets_dir):
+def text_file(assets_dir):
     return assets_dir / "notes.txt"
