@@ -63,7 +63,7 @@
                     <p class="text-muted small">or click to browse</p>
 
                     <input type="file" id="image-input" accept="image/*" hidden>
-                    <button id="predict-button" type = "button" class="btn btn-success mt-3 w-100" disabled>
+                    <button id="predict-button" type="button" class="btn btn-success mt-3 w-100" disabled>
                         Predict Image
                     </button>
 
@@ -132,14 +132,24 @@
         </div>
 
         <!-- ================= FOOTER ================= -->
-        <footer class="text-center mt-5 text-muted small">
-            <div class="mb-2">Model Stack</div>
+        <footer class="mt-5">
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
 
-            <span class="badge bg-light text-dark">PyTorch</span>
-            <span class="badge bg-light text-dark">FastAPI</span>
-            <span class="badge bg-light text-dark">ResNet18</span>
-            <span class="badge bg-light text-dark">PlantVillage</span>
-            <span class="badge bg-light text-dark">Docker</span>
+                <div class="text-center mb-3">
+                    <div class="fw-semibold fs-5">Model Stack</div>
+                    <div class="text-muted small">Tech used in this system</div>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+
+                    <span class="tech-pill">PyTorch</span>
+                    <span class="tech-pill">FastAPI</span>
+                    <span class="tech-pill">ResNet18</span>
+                    <span class="tech-pill">PlantVillage</span>
+                    <span class="tech-pill">Docker</span>
+
+                </div>
+            </div>
         </footer>
 
     </main>
