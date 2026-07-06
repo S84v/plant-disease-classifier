@@ -107,3 +107,18 @@ body {
     border-color: #198754;
     box-shadow: 0 4px 12px rgba(25, 135, 84, 0.2);
 }
+
+body {
+    font-family: "Inter", sans-serif;
+    background: linear-gradient(135deg, #f8fafc, #eef7f1);
+    color: #1f2937;
+}
+
+h1, h2, h3, h4, h5, .fw-bold {
+    font-family: "Inter", sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.text-muted {
+    color: #6b7280 !important;
+}
