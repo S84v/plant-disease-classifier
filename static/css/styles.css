@@ -78,3 +78,32 @@ body {
 .border-success {
     border: 2px solid #198754 !important;
 }
+
+.bg-light.border {
+    transition: all 0.2s ease;
+}
+
+.bg-light.border:hover {
+    transform: translateY(-2px);
+    background: #f8f9fa !important;
+}
+
+.tech-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 999px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    color: #333;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.tech-pill:hover {
+    background: #198754;
+    color: white;
+    transform: translateY(-2px);
+    border-color: #198754;
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.2);
+}
