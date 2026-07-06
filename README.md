@@ -72,7 +72,7 @@ All of this runs locally in a single Docker container — no cloud dependency, n
 
 ---
 
-## 🛠️ Tech Stack
+## :hammer_and_wrench: Tech Stack
 
 | Layer | Technology |
 |---|---|
