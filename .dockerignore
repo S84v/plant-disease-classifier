@@ -28,7 +28,9 @@ logs/
 outputs/
 
 # Dataset
-data/
+data/test/
+data/train/
+data/valid/
 
 # IDE
 .vscode/
