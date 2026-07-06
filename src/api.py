@@ -24,11 +24,20 @@ class Prediction(BaseModel):
     class_name: str
     confidence: float
 
-
+class DiseaseInfo(BaseModel):
+    display_name: str
+    crop: str
+    status: str
+    description: str
+    symptoms: list[str]
+    cause: str
+    treatment: list[str]
+    prevention: list[str]
 class PredictionResponse(BaseModel):
     predicted_class: str
     confidence: float
     top_k_predictions: list[Prediction]
+    disease_info: DiseaseInfo
 
 
 logger = logging.getLogger(__name__)
