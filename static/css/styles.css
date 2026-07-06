@@ -1,0 +1,26 @@
+body {
+    background: linear-gradient(135deg, #f8fafc, #f1f8f4);
+    min-height: 100vh;
+}
+
+/* smooth card appearance */
+.card {
+    transition: all 0.2s ease-in-out;
+}
+
+/* nicer hover for upload button later */
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* image preview styling */
+#image-preview {
+    max-height: 400px;
+    object-fit: contain;
+}
+
+/* remove default list styling polish */
+.list-group-numbered {
+    margin-top: 10px;
+}
