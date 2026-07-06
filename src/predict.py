@@ -8,13 +8,17 @@ from torchvision.transforms import v2
 from PIL import Image
 from pathlib import Path
 
+from .disease_info import DISEASE_INFO
+
 
 def load_model():
     model = build_model(
         num_classes=config.NUM_CLASSES, pretrained=True, freeze_backbone=False
     )
     model.load_state_dict(
-        state_dict=torch.load(Path(config.MODEL_DIR) / "best_model.pth", weights_only=True)
+        state_dict=torch.load(
+            Path(config.MODEL_DIR) / "best_model.pth", weights_only=True
+        )
     )
 
     model.eval()
@@ -57,7 +61,6 @@ def preprocess_image(image, transform):
 
 
 def predict_image(model, image_tensor, class_names, top_k=5):
-
     with torch.no_grad():
         logits = model(image_tensor)
         probabilities = torch.softmax(logits, dim=1)
@@ -72,10 +75,26 @@ def predict_image(model, image_tensor, class_names, top_k=5):
             top_predictions.append(
                 {"class_name": class_names[index], "confidence": probability}
             )
+        predicted_class = top_predictions[0]["class_name"]
+
+        metadata = DISEASE_INFO.get(
+            predicted_class,
+            {
+                "display_name": predicted_class,
+                "crop": "Unknown",
+                "description": "Unknown",
+                "symptoms": [],
+                "cause": "",
+                "treatment": [],
+                "prevention": [],
+            },
+        )
+
         return {
-            "predicted_class": top_predictions[0]["class_name"],
+            "predicted_class": predicted_class,
             "confidence": top_predictions[0]["confidence"],
             "top_k_predictions": top_predictions,
+            "disease_info": metadata,
         }
 
 
