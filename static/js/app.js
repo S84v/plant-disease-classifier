@@ -18,39 +18,47 @@ const treatmentEl = document.getElementById("treatment");
 const preventionEl = document.getElementById("prevention");
 const errorMessageEl = document.getElementById("error-message");
 
+const uploadArea = document.getElementById("upload-area");
+
+// click to open file picker
+uploadArea.addEventListener("click", () => {
+    imageInput.click();
+});
+
+
+// drag over styling
+uploadArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    uploadArea.classList.add("border-success");
+});
+
+// drag leave
+uploadArea.addEventListener("dragleave", () => {
+    uploadArea.classList.remove("border-success");
+});
+
+// drop file
+uploadArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove("border-success");
+
+    const file = e.dataTransfer.files[0];
+
+    if (file) {
+        handleFile(file);
+    }
+});
 // state
 let selectedFile = null;
 
 // ================= IMAGE SELECTION =================
 imageInput.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-        alert("Please upload a valid image file.");
-        resetUI();
-        return;
-    }
-
-    selectedFile = file;
-
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-        imagePreview.src = e.target.result;
-
-        imagePreview.classList.remove("d-none");
-        previewPlaceholder.classList.add("d-none");
-
-        predictButton.disabled = false;
-    };
-
-    reader.readAsDataURL(file);
+    handleFile(event.target.files[0]);
 });
 
 // ================= PREDICT =================
-predictButton.addEventListener("click", async () => {
+predictButton.addEventListener("click", async (e) => {
+    e.stopPropagation();
     if (!selectedFile) return;
 
     clearUI();
@@ -176,4 +184,33 @@ function resetUI() {
     predictButton.disabled = true;
 
     clearUI();
+
+    // reset upload highlight
+    uploadArea.classList.remove("border-success");
+}
+
+function handleFile(file) {
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please upload a valid image file.");
+        resetUI();
+        return;
+    }
+
+    selectedFile = file;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+        imagePreview.src = e.target.result;
+
+        imagePreview.classList.remove("d-none");
+        previewPlaceholder.classList.add("d-none");
+
+        predictButton.disabled = false;
+    };
+
+    reader.readAsDataURL(file);
 }
