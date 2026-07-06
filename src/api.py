@@ -2,7 +2,12 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
-from .predict import load_model, get_inference_transform, preprocess_image, predict_image
+from .predict import (
+    load_model,
+    get_inference_transform,
+    preprocess_image,
+    predict_image,
+)
 
 
 from . import config
@@ -45,6 +50,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 register_exception_handlers(app)
 
 allowed_types = {
