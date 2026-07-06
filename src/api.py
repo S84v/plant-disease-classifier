@@ -64,8 +64,8 @@ allowed_types = {
 
 
 @app.get("/")
-def root():
-    return {"message": "API running."}
+def root(request: Request):
+    return templates.TemplateResponse(request=request, name = "index.html")
 
 
 @app.get("/health")
