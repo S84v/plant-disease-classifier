@@ -98,7 +98,15 @@ function renderResults(data) {
 
     data.top_k_predictions.forEach((item, index) => {
 
-        const confidence = (item.confidence * 100).toFixed(2);
+        const confidence = item.confidence * 100;
+
+        let barColor = "#dc3545"; // red default
+
+        if (confidence >= 70) {
+            barColor = "#198754"; // green
+        } else if (confidence >= 40) {
+            barColor = "#ffc107"; // yellow
+        }
 
         const li = document.createElement("li");
 
@@ -107,18 +115,20 @@ function renderResults(data) {
         const isTop = index === 0;
 
         li.innerHTML = `
-            <div class="${isTop ? 'top-pred' : ''}">
-                ${item.class_name}
-            </div>
+        <div class="${isTop ? 'top-pred' : ''}">
+            ${item.class_name}
+        </div>
 
-            <div class="text-muted small">
-                ${confidence}%
-            </div>
+        <div class="text-muted small">
+            ${confidence.toFixed(2)}%
+        </div>
 
-            <div class="conf-bar">
-                <div class="conf-bar-fill" style="width: ${confidence}%"></div>
+        <div class="conf-bar">
+            <div class="conf-bar-fill"
+                 style="width: ${confidence}%; background: ${barColor};">
             </div>
-        `;
+        </div>
+    `;
 
         topPredictionsEl.appendChild(li);
     });
