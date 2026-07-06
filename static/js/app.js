@@ -83,34 +83,47 @@ predictButton.addEventListener("click", async () => {
 
 // ================= RENDER RESULTS =================
 function renderResults(data) {
-    // show result section
+
     resultSection.classList.remove("d-none");
     diseaseInfoSection.classList.remove("d-none");
 
-    // predicted class + confidence
+    // ================= MAIN PREDICTION =================
     predictedClassEl.textContent = data.predicted_class;
 
     confidenceScoreEl.textContent =
         (data.confidence * 100).toFixed(2) + "%";
 
-    // top-k predictions
+    // ================= TOP-K =================
     topPredictionsEl.innerHTML = "";
 
-    data.top_k_predictions.forEach((item) => {
+    data.top_k_predictions.forEach((item, index) => {
+
+        const confidence = (item.confidence * 100).toFixed(2);
+
         const li = document.createElement("li");
-        li.className = "list-group-item d-flex justify-content-between";
+
+        li.className = "list-group-item";
+
+        const isTop = index === 0;
 
         li.innerHTML = `
-            <span>${item.class_name}</span>
-            <span class="text-muted">
-                ${(item.confidence * 100).toFixed(2)}%
-            </span>
+            <div class="${isTop ? 'top-pred' : ''}">
+                ${item.class_name}
+            </div>
+
+            <div class="text-muted small">
+                ${confidence}%
+            </div>
+
+            <div class="conf-bar">
+                <div class="conf-bar-fill" style="width: ${confidence}%"></div>
+            </div>
         `;
 
         topPredictionsEl.appendChild(li);
     });
 
-    // disease info
+    // ================= DISEASE INFO =================
     const info = data.disease_info;
 
     descriptionEl.textContent = info.description || "N/A";
