@@ -28,10 +28,10 @@
 - [Problem Statement](#-problem-statement)
 - [Key Features](#-key-features)
 - [Tech Stack](#hammer_and_wrench-tech-stack)
-- [System Architecture](#-system-architecture)
+- [System Architecture](#building_construction-system-architecture)
 - [Model Details](#-model-details)
 - [Training Results & Metrics](#-training-results--metrics)
-- [Model Predictions & UI Demo](#-model-predictions--ui-demo)
+- [Model Predictions & UI Demo](#framed_picture-model-predictions--ui-demo)
 - [Try It Yourself](#-try-it-yourself)
 - [Getting Started (Docker)](#-getting-started-docker)
 - [Project Structure](#-project-structure)
@@ -88,7 +88,7 @@ All of this runs locally in a single Docker container — no cloud dependency, n
 
 ---
 
-## 🏗️ System Architecture
+## :building_construction: System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -242,7 +242,7 @@ All 38 classes achieve F1-scores between **0.96 and 1.00**:
 
 ---
 
-## 🖼️ Model Predictions & UI Demo
+## :framed_picture: Model Predictions & UI Demo
 
 ### Web Interface — Upload Screen
 
