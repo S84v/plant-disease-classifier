@@ -1,7 +1,7 @@
 # FastAPI wrapper for predict.py
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 from .predict import (
     load_model,
@@ -24,6 +24,7 @@ class Prediction(BaseModel):
     class_name: str
     confidence: float
 
+
 class DiseaseInfo(BaseModel):
     display_name: str
     crop: str
@@ -33,6 +34,8 @@ class DiseaseInfo(BaseModel):
     cause: str
     treatment: list[str]
     prevention: list[str]
+
+
 class PredictionResponse(BaseModel):
     predicted_class: str
     confidence: float
@@ -61,7 +64,6 @@ app = FastAPI(
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
 
 register_exception_handlers(app)
 
@@ -74,7 +76,7 @@ allowed_types = {
 
 @app.get("/")
 def root(request: Request):
-    return templates.TemplateResponse(request=request, name = "index.html")
+    return FileResponse("static/index.html")
 
 
 @app.get("/health")
