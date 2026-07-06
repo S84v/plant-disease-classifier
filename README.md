@@ -27,7 +27,7 @@
 
 - [Problem Statement](#-problem-statement)
 - [Key Features](#-key-features)
-- [Tech Stack](#-tech-stack)
+- [Tech Stack](#tech-stack)
 - [System Architecture](#-system-architecture)
 - [Model Details](#-model-details)
 - [Training Results & Metrics](#-training-results--metrics)
