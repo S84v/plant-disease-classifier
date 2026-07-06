@@ -1,26 +1,67 @@
 body {
-    background: linear-gradient(135deg, #f8fafc, #f1f8f4);
-    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fafc, #eef7f1);
 }
 
-/* smooth card appearance */
+/* smooth card feel */
 .card {
-    transition: all 0.2s ease-in-out;
+    border-radius: 16px;
 }
 
-/* nicer hover for upload button later */
-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-/* image preview styling */
+/* preview image */
 #image-preview {
-    max-height: 400px;
+    max-height: 420px;
     object-fit: contain;
 }
 
-/* remove default list styling polish */
-.list-group-numbered {
-    margin-top: 10px;
+/* nicer section spacing */
+#result-section,
+#disease-info-section {
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+/* fade animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* top prediction highlight */
+.top-pred {
+    font-weight: 600;
+    color: #198754;
+}
+
+/* confidence bar wrapper */
+.conf-bar {
+    height: 8px;
+    border-radius: 10px;
+    background: #e9ecef;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.conf-bar-fill {
+    height: 100%;
+    background: #198754;
+    border-radius: 10px;
+}
+
+/* list styling cleanup */
+.list-group-item {
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* subtle button improvement */
+.btn-success {
+    border-radius: 10px;
+    font-weight: 500;
 }
