@@ -114,11 +114,39 @@ body {
     color: #1f2937;
 }
 
-h1, h2, h3, h4, h5, .fw-bold {
+h1,
+h2,
+h3,
+h4,
+h5,
+.fw-bold {
     font-family: "Inter", sans-serif;
     letter-spacing: -0.02em;
 }
 
 .text-muted {
     color: #6b7280 !important;
+}
+
+.btn-outline-success {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(25, 135, 84, 0.2);
+}
+
+.card {
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card .text-muted {
+    line-height: 1.5;
 }
