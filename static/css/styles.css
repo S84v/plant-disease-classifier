@@ -65,3 +65,16 @@ body {
     border-radius: 10px;
     font-weight: 500;
 }
+
+#upload-area {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#upload-area:hover {
+    background: #f8f9fa;
+}
+
+.border-success {
+    border: 2px solid #198754 !important;
+}
