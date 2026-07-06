@@ -1,6 +1,7 @@
 # FastAPI wrapper for predict.py
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from contextlib import asynccontextmanager
 from .predict import (
     load_model,
