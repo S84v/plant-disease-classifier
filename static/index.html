@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plant Disease Classifier</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- ================= HERO ================= -->
+
+        <header class="hero">
+
+            <h1>🌿 Plant Disease Classifier</h1>
+
+            <p class="hero-description">
+                Upload a clear image of a plant leaf and let an AI model identify the
+                most likely disease. View prediction confidence, top predictions,
+                and detailed information about the detected disease.
+            </p>
+
+        </header>
+
+        <!-- ================= UPLOAD ================= -->
+
+        <section class="card upload-card">
+
+            <h2>Upload Image</h2>
+
+            <input type="file" id="image-input" accept="image/*" hidden>
+
+            <label for="image-input" class="upload-area">
+
+                <div class="upload-icon">
+                    📷
+                </div>
+
+                <p class="upload-title">
+                    Click to upload a leaf image
+                </p>
+
+                <p class="upload-subtitle">
+                    Supported formats: JPG, JPEG, PNG
+                </p>
+
+            </label>
+
+            <div class="preview-container">
+
+                <img id="image-preview" alt="Uploaded image preview" hidden>
+
+            </div>
+
+            <button id="predict-button" class="primary-button" disabled>
+                Predict Disease
+            </button>
+
+        </section>
+
+        <!-- ================= LOADING ================= -->
+
+        <section id="loading-section" class="card" hidden>
+
+            <h2>Analyzing Image...</h2>
+
+            <div class="spinner"></div>
+
+            <p>
+                Please wait while the model analyzes the uploaded image.
+            </p>
+
+        </section>
+
+        <!-- ================= PREDICTION ================= -->
+
+        <section id="result-section" class="card" hidden>
+
+            <h2>Prediction Result</h2>
+
+            <div class="prediction-summary">
+
+                <p>
+
+                    <strong>Predicted Disease</strong><br>
+
+                    <span id="predicted-class"></span>
+
+                </p>
+
+                <p>
+
+                    <strong>Confidence</strong><br>
+
+                    <span id="confidence-score"></span>
+
+                </p>
+
+            </div>
+
+            <h3>Top Predictions</h3>
+
+            <ol id="top-predictions"></ol>
+
+        </section>
+
+        <!-- ================= DISEASE INFORMATION ================= -->
+
+        <section id="disease-info-section" class="card" hidden>
+
+            <h2>Disease Information</h2>
+
+            <h3 id="display-name"></h3>
+
+            <p id="description"></p>
+
+            <h4>Symptoms</h4>
+
+            <ul id="symptoms"></ul>
+
+            <h4>Cause</h4>
+
+            <p id="cause"></p>
+
+            <h4>Treatment</h4>
+
+            <ul id="treatment"></ul>
+
+            <h4>Prevention</h4>
+
+            <ul id="prevention"></ul>
+
+        </section>
+
+        <!-- ================= MODEL INFORMATION ================= -->
+
+        <footer class="footer">
+
+            <p class="footer-title">
+                Powered by
+            </p>
+
+            <div class="tech-stack">
+
+                <span class="tech-badge">PyTorch</span>
+
+                <span class="tech-badge">FastAPI</span>
+
+                <span class="tech-badge">ResNet18</span>
+
+                <span class="tech-badge">PlantVillage</span>
+
+                <span class="tech-badge">Docker</span>
+
+            </div>
+
+        </footer>
+
+        <!-- ================= ERROR ================= -->
+
+        <section id="error-section" class="card error-card" hidden>
+
+            <h2>Error</h2>
+
+            <p id="error-message"></p>
+
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', path='js/app.js') }}"></script>
+
+</body>
+
+</html>
