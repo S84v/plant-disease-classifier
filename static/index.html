@@ -54,22 +54,18 @@
             <!-- RIGHT: UPLOAD CONTROLS -->
             <div class="col-lg-6">
 
-                <div class="card shadow-sm border-0 rounded-4 p-4">
+                <div id="upload-area" class="border rounded-4 p-4 text-center bg-light">
 
-                    <h5 class="mb-3">Upload Leaf Image</h5>
+                    <i class="bi bi-cloud-arrow-up fs-1 text-success"></i>
 
-                    <input type="file" id="image-input" class="form-control mb-3" accept="image/*">
+                    <p class="mt-2 mb-1 fw-semibold">Drag & drop image here</p>
 
-                    <button id="predict-button" class="btn btn-success w-100" disabled>
-                        <i class="bi bi-search"></i> Predict Disease
+                    <p class="text-muted small">or click to browse</p>
+
+                    <input type="file" id="image-input" accept="image/*" hidden>
+                    <button id="predict-button" type = "button" class="btn btn-success mt-3 w-100" disabled>
+                        Predict Image
                     </button>
-
-                    <hr class="my-4">
-
-                    <div class="text-muted small">
-                        Supported formats: JPG, PNG, JPEG<br>
-                        Model: ResNet18 (PyTorch)
-                    </div>
 
                 </div>
 
