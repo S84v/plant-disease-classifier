@@ -91,7 +91,7 @@ All of this runs locally in a single Docker container — no cloud dependency, n
 ## :building_construction: System Architecture
 
 <p align="center">
-  <img src="images\sys_arch.jpg" alt="System Architecture" height = 720/>
+  <img src="images\sys_arch.jpg" alt="System Architecture" height = 600/>
 </p>
 
 **Request lifecycle:**
