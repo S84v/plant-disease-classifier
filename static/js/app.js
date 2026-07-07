@@ -89,6 +89,12 @@ predictButton.addEventListener("click", async (e) => {
     }
 });
 
+function getConfidenceColor(confidence) {
+    if (confidence >= 70) return "#198754";   // green
+    if (confidence >= 40) return "#ffc107";   // yellow
+    return "#dc3545";                         // red
+}
+
 // ================= RENDER RESULTS =================
 function renderResults(data) {
 
@@ -96,7 +102,10 @@ function renderResults(data) {
     diseaseInfoSection.classList.remove("d-none");
 
     // ================= MAIN PREDICTION =================
+    const topConfidence = data.top_k_predictions[0].confidence * 100;
+
     predictedClassEl.textContent = data.predicted_class;
+    predictedClassEl.style.color = getConfidenceColor(topConfidence);
 
     confidenceScoreEl.textContent =
         (data.confidence * 100).toFixed(2) + "%";
@@ -108,13 +117,7 @@ function renderResults(data) {
 
         const confidence = item.confidence * 100;
 
-        let barColor = "#dc3545"; // red default
-
-        if (confidence >= 70) {
-            barColor = "#198754"; // green
-        } else if (confidence >= 40) {
-            barColor = "#ffc107"; // yellow
-        }
+        const barColor = getConfidenceColor(confidence);
 
         const li = document.createElement("li");
 
@@ -122,8 +125,12 @@ function renderResults(data) {
 
         const isTop = index === 0;
 
+        if (isTop) {
+            li.style.color = barColor;
+        }
+
         li.innerHTML = `
-        <div class="${isTop ? 'top-pred' : ''}">
+        <div class="${isTop ? 'fw-semibold' : ''}">
             ${item.class_name}
         </div>
 
