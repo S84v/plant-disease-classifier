@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/UI.png" alt="Plant Disease Classifier — Web UI" width="720" /> 
+  <img src="images/UI.png" alt="Plant Disease Classifier — Web UI" width="720" />
 </p>
 
 <h1 align="center">🌿 Plant Disease Classifier</h1>
