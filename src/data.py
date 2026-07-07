@@ -18,7 +18,7 @@ def get_transforms():
         [
             v2.Resize((config.IMAGE_SIZE, config.IMAGE_SIZE)),
             v2.RandomHorizontalFlip(),
-            v2.RandomRotation(10),
+            v2.RandomRotation(config.RANDOM_ROTATION),
             v2.ToImage(),
             v2.ToDtype(torch.float32, scale=True),
             v2.Normalize(mean=config.IMAGENET_MEAN, std=config.IMAGENET_STD),
