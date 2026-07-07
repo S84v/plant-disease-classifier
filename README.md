@@ -90,25 +90,9 @@ All of this runs locally in a single Docker container — no cloud dependency, n
 
 ## :building_construction: System Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Docker Container                         │
-│                                                                 │
-│  ┌──────────┐    ┌──────────────┐    ┌──────────────────────┐   │
-│  │          │    │              │    │                      │   │
-│  │  Web UI  │───▶│  FastAPI     │───▶│  PyTorch ResNet18   │   │
-│  │  (HTML/  │    │  Backend     │    │  Inference Engine    │   │
-│  │  CSS/JS) │◀───│  /predict    │◀───│                     │   │
-│  │          │    │              │    │  ┌────────────────┐  │   │
-│  └──────────┘    └──────────────┘    │  │ Disease Meta-  │  │   │
-│                                      │  │ data (JSON)    │  │   │
-│       User uploads                   │  └────────────────┘  │   │
-│       leaf image                     └──────────────────────┘   │
-│                                                                 │
-│  Flow: Image → Resize 224×224 → Normalize → Model → Softmax     │
-│        → Top-5 Predictions + Disease Info → JSON → UI Render    │
-└─────────────────────────────────────────────────────────────────┘
-```
+<p align="center">
+  <img src="images\sys_arch.jpg" alt="System Architecture" height = 512/>
+</p>
 
 **Request lifecycle:**
 
