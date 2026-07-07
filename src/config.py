@@ -19,6 +19,7 @@ NUM_WORKERS = 0
 EPOCHS = 5
 LR = 1e-3
 NUM_CLASSES = 38
+RANDOM_ROTATION = 10
 CLASS_NAMES = [
     "Apple___Apple_scab",
     "Apple___Black_rot",
