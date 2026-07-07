@@ -32,12 +32,6 @@ body {
     }
 }
 
-/* top prediction highlight */
-.top-pred {
-    font-weight: 600;
-    color: #198754;
-}
-
 /* confidence bar wrapper */
 .conf-bar {
     height: 8px;
